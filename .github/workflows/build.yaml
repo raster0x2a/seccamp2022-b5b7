@@ -19,7 +19,7 @@ jobs:
         with:
           registry: ghcr.io
           # Suppose that your repository is located at https://github.com/<X>/<Y>, this value should be equal to X
-          username: lmt-swallow
+          username: raster0x2a
           password: ${{ github.token }}
 
       # TODO: add cosign-installer etc.

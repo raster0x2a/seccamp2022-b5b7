@@ -21,7 +21,6 @@ jobs:
           username: raster0x2a
           password: ${{ github.token }}
 
-      # TODO: add cosign-installer etc.
       - name: install cosign
         uses: sigstore/cosign-installer@main
 
@@ -42,7 +41,7 @@ jobs:
       - name: Sign the container image
         env:
           COSIGN_EXPERIMENTAL: "true"
-          run: cosign sign --force ghcr.io/${{ github.repository }}@${{ steps.push-step.outputs.digest }}
+        run: cosign sign --force ghcr.io/${{ github.repository }}@${{ steps.push-step.outputs.digest }}
 
       - name: Verify the container image
         env:

@@ -18,7 +18,6 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          # Suppose that your repository is located at https://github.com/<X>/<Y>, this value should be equal to X
           username: raster0x2a
           password: ${{ github.token }}
 
@@ -35,6 +34,6 @@ jobs:
           file: ./Dockerfile
           # Suppose that your repository is located at https://github.com/<X>/<Y>, this value should be equal to ghcr.io/<X>/<random value>:latest
           tags: |
-            ghcr.io/lmt-swallow/test-image:latest
+            ghcr.io/raster0x2a/test-image:latest
           platforms: linux/amd64
           push: true

@@ -22,6 +22,8 @@ jobs:
           password: ${{ github.token }}
 
       # TODO: add cosign-installer etc.
+      - name: install cosign
+        uses: sigstore/cosign-installer@main
 
       - name: Prepare Dockerfile
         run: |
@@ -32,8 +34,18 @@ jobs:
         with:
           context: ./
           file: ./Dockerfile
-          # Suppose that your repository is located at https://github.com/<X>/<Y>, this value should be equal to ghcr.io/<X>/<random value>:latest
           tags: |
             ghcr.io/raster0x2a/test-image:latest
           platforms: linux/amd64
           push: true
+
+      - name: Sign the container image
+        env:
+          COSIGN_EXPERIMENTAL: "true"
+          run: cosign sign --force ghcr.io/${{ github.repository }}@${{ steps.push-step.outputs.digest }}
+
+      - name: Verify the container image
+        env:
+          COSIGN_EXPERIMENTAL: "true"
+        run: cosign verify ghcr.io/${{ github.repository }}@${{ steps.push-step.outputs.digest }}
+

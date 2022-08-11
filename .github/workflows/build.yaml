@@ -47,4 +47,7 @@ jobs:
         env:
           COSIGN_EXPERIMENTAL: "true"
         run: cosign verify ghcr.io/${{ github.repository }}@${{ steps.push-step.outputs.digest }}
-
+    
+    permissions:
+      packages: write
+      id-token: write
